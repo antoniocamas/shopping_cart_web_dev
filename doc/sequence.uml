@@ -1,0 +1,79 @@
+@startuml
+actor User
+collections Browser
+collections Backend
+database DB
+
+== Landing Page ==
+
+User -> Browser : /index.html
+Browser -> Backend : GET /index.html
+Backend -> DB : get order list
+DB -> Backend : order list
+Backend -> Browser : /index.html
+Browser -> User : (list orders, and new order)
+
+== New Order ==
+User -> Browser : Click on new order
+Browser -> Backend : GET /new_order.html
+Backend -> Browser : /new_order.html
+Browser -> User : formulary
+User -> Browser : enters the title
+
+loop n times
+  User -> Browser : Add text of item
+  Browser -> User : show item in a list
+  User -> Browser : click Add new item button
+  Browser -> User : show a new input text field
+end
+
+User -> Browser : click send
+Browser -> Backend : POST /create_order.html
+Backend -> DB : create new order entry
+Backend -> Browser : /index.html
+Browser -> User : /index.html
+
+== Show Order ==
+
+User -> Browser : Click on order
+Browser -> Backend : GET /show_order/<id>
+Backend -> DB : get order with <id>
+DB -> Backend : return order <id>
+Backend -> Browser : order.html
+Browser -> User : Order details (list of items)
+
+== Delete Order ==
+group from /order.html
+User -> Browser : click on Delete Order
+Browser -> User : alert Are you sure?
+User -> Browser : yes
+Browser -> Backend : DELETE /delete_order/<id>
+Backend -> DB : delete order <id>
+Backend -> Browser : /index.html
+Browser -> User : /index.html
+end
+
+== Update Order ==
+group from /order.html
+User -> Browser : click on Update Order
+Browser -> User : Allows editing the items.
+loop n times
+  alt cross out item
+      User -> Browser : mark item checkbox
+      Browser -> User : item is crossed out
+  else delete item
+      User -> Browser : click item delete button
+      Browser -> User : item is deleted
+  else add item
+      User -> Browser : click Add new item button
+      Browser -> User : show a new input text field
+  end
+end
+
+User -> Browser : click on Save
+Browser -> Backend : UPDATE /delete_order/<id>
+Backend -> DB : update order <id>
+Backend -> Browser : /index.html
+Browser -> User : /index.html
+end
+@enduml
