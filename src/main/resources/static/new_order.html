@@ -1,13 +1,23 @@
 <html>
 <head>
-	<meta charset="UTF-8"/>
+	<title>Simple Shop</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+	<link href="/css/bootstrap.css" rel="stylesheet" />
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	
 </head>
 <body>
-	<form action="create_order" method="post">
+	<form action="/create_order" method="get">
 		<p>Title: </p>
 		<input type='text' name='title'/>
-		<p>Item:</p>
-		<input type='text' name='item'/>
+		<p>Items:</p>
+		<ol>
+			<li><input type='text' name='items'/></li>
+			<li><input type='text' name='items'/></li>
+		</ol>
 		
 		<input type='submit' value='Create'/>
 	</form>
