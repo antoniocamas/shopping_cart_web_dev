@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 
 @Controller
 public class URIsController {
@@ -71,14 +72,37 @@ public class URIsController {
 			Item entry = new Item(item);
 			itemEntries.add(entry);
 			itemRepository.save(entry);
-//			System.out.println(item);
 		}
 		
 		CustomerOrder order = new CustomerOrder(title, itemEntries);
 		orderRepository.save(order);
 
-		return "success_order.html";
+		return "success_order";
 
 	}
 
+	@PostMapping(value ="/create_order")
+	public String createOrderPost(WebRequest request ) {
+		System.out.println("Handling a Post message");
+		String title = request.getParameter("title");
+		String[] items = request.getParameterValues("items");
+		
+		List<Item> itemEntries = new ArrayList<Item>();
+		for (String item : items) {
+			System.out.println(item);
+			Item entry = new Item(item);
+			itemEntries.add(entry);
+			itemRepository.save(entry);
+		}
+		
+		
+		CustomerOrder order = new CustomerOrder(title, itemEntries);
+		orderRepository.save(order);
+		System.out.println(order);
+		
+		return "success_order";
+
+	}
+
+	
 }
