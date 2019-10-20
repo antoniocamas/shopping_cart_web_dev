@@ -1,0 +1,35 @@
+<html>
+<head>
+	<title>Simple Shop</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!--<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	-->
+	
+	<link href="/css/bootstrap.css" rel="stylesheet" />
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	
+</head>
+<body>
+	<h1>Orders</h1>
+	<div>
+		<ul>
+			{{#orders}}
+			<li>
+				<a href="show_order/{{id}}">{{title}}</a><br>
+			</li>
+			{{/orders}}    
+		</ul>
+			{{^orders}}
+			<p>No orders to show yet</p>
+		    {{/orders}}
+	</div>
+	<br>
+	<input type="button" onclick="location.href='new_order.html';" value="New Order" />
+	<input type="button" onclick="location.href='new_order_post.html';" value="New Order Post" />
+</body>
+</html>

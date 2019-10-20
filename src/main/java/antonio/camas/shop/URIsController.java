@@ -1,6 +1,5 @@
 package antonio.camas.shop;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
@@ -83,13 +81,11 @@ public class URIsController {
 
 	@PostMapping(value ="/create_order")
 	public String createOrderPost(WebRequest request ) {
-		System.out.println("Handling a Post message");
 		String title = request.getParameter("title");
 		String[] items = request.getParameterValues("items");
 		
 		List<Item> itemEntries = new ArrayList<Item>();
 		for (String item : items) {
-			System.out.println(item);
 			Item entry = new Item(item);
 			itemEntries.add(entry);
 			itemRepository.save(entry);
@@ -98,7 +94,7 @@ public class URIsController {
 		
 		CustomerOrder order = new CustomerOrder(title, itemEntries);
 		orderRepository.save(order);
-		System.out.println(order);
+		//System.out.println(order);
 		
 		return "success_order";
 

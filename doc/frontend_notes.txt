@@ -1,0 +1,2 @@
+The styles are based on the template:
+https://startbootstrap.com/previews/sb-admin-2/
