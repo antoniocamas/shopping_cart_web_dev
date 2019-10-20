@@ -119,11 +119,13 @@
 				<p>No items yet</p>
 			{{/order.items}}
     
-    
-    		<form action="/delete_order/{{order.id}}" method="get">
-    			<input type="submit" value="Delete This Order" />
-			</form>
-	    
+ 			<button class="btn btn-danger btn-icon-split" onclick="deleteOrderConfirmation('/delete_order/{{order.id}}')">
+        		<span class="icon text-white-50">
+          			<i class="fas fa-trash"></i>
+        		</span>
+        		<span class="text">Delete this Order</span>
+      		</button>   
+   		
         </div>
         <!-- /.container-fluid (End page content) -->
 
@@ -179,7 +181,9 @@
 
   <!-- Custom scripts for all pages-->
   <script src="/js/sb-admin-2.min.js"></script>
-
+  
+  <!-- Simple Shop scripts-->
+  <script src="/js/behavior.js"></script>
 </body>
 
 </html>

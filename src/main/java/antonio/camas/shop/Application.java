@@ -4,7 +4,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
-//(scanBasePackages={"antonio.camas.shop"})
 @SpringBootApplication
 public class Application {
 

@@ -39,8 +39,8 @@ public class URIsController {
 		
 		List<Item> itemsOrder1 = Arrays.asList(item1Or1, item1Or2, item1Or3);
 		
-		orderRepository.save(new CustomerOrder("Order1", itemsOrder1));
-		orderRepository.save(new CustomerOrder("Order2"));
+		orderRepository.save(new CustomerOrder("Fruits", itemsOrder1));
+		orderRepository.save(new CustomerOrder("Drinks"));
 	}
 	
 	@GetMapping("/")
