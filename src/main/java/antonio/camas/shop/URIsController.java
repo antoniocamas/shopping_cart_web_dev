@@ -104,5 +104,19 @@ public class URIsController {
 
 	}
 
+	@GetMapping("/delete_order/{id}")
+	public String deleteOrder(@PathVariable long id) {
+
+		CustomerOrder order = orderRepository.findById(id).get();
+		List<Item> items = order.getItems();
+		items.size(); //resolve the lazy query before deleting.
+		orderRepository.delete(order);
+		
+		for (Item item : items) {
+			itemRepository.delete(item);
+		}
+		
+		return "success_order";
+	}
 	
 }

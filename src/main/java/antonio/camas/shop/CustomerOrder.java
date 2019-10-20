@@ -55,7 +55,15 @@ public class CustomerOrder {
 		this.title = title;
 	}
 
-		@Override
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+	
+	@Override
 	public String toString() {
 		return "CustomerOrder [title=" + title +"]";
 	}

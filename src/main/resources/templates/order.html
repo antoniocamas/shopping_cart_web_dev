@@ -19,10 +19,16 @@
 				{{^crossed}}
   					{{name}}
 				{{/crossed}}
+
 			</li>
 		{{/order.items}}
 		
 	</ol>
+	
+	<form action="/delete_order/{{order.id}}" method="get">
+    	<input type="submit" value="Delete Order" />
+	</form>
+	
 	{{^order.items}}
 		<p>No items yet</p>
 	{{/order.items}}
