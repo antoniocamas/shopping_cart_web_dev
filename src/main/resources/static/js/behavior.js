@@ -12,15 +12,24 @@ $(document).ready(function() {
             newItemInputWrapper = $("#itemTextBoxes").first().html();
         }        
         $("#itemTextBoxes").append(newItemInputWrapper);
-        $("#itemTextBoxes").find('.btn-danger').show();
+        swithDeleteButtons();
     });
 
   
 });
 
+function swithDeleteButtons() {
+    if($("#itemTextBoxes").children().length > 1){
+        $("#itemTextBoxes").find('.btn-danger').show();
+    }
+    else{
+        $("#itemTextBoxes").find('.btn-danger').hide();
+    }
+};
+
 //Since the class rowInputDeleter is added dynamically the listener has to be at document level
 $(document).on('click', '.rowInputDeleter', function(event) {
     event.preventDefault();
     $(event.target).closest(".form-group").remove();
-    
+    swithDeleteButtons();    
 });
