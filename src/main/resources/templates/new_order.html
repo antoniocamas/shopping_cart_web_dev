@@ -1,0 +1,62 @@
+{{> commonUpperTemplate }}
+
+          <!--Section title-->
+          <h1 class="h3 mb-1 text-gray-800">New Order</h1>
+          <!-- End Section title -->
+
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav ml-auto">
+              <li><span>Proof of Concept of Web development</span></li>
+          </ul> 
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+        
+ 		  <form action="/create_order" method="post">
+            <div class="form-group">
+              <label>Title: </label>
+              <input type='text' placeholder="Order title" name='title' />
+            </div>
+
+
+            <p>Items</p>
+            <div id="itemTextBoxes">
+              <div class="form-group">
+                <input type="text" class="form-control-user" placeholder="Item Name" name="items">
+
+                <a href="#" class="btn btn-danger btn-circle btn-sm rowInputDeleter" style="display:none">
+                    <i class="fas fa-trash rowInputDeleter"></i>
+                </a>
+              </div>
+            </div>
+
+            <div class="my-2"></div>
+            <a href="#" class="btn btn-info btn-icon-split" id="addItem">
+              <span class="icon text-white-50">
+                <i class="fas fa-arrow-up"></i>
+              </span>
+              <span class="text">Add new item</span>
+            </a>
+
+            <br /><br />
+            <hr class="sidebar-divider my-0">
+            <br /><br />
+            <div class="my-2"></div>
+            <button type="submit" class="btn btn-success btn-icon-split">
+              <span class="icon text-white-50">
+                <i class="fas fa-check"></i>
+              </span>
+              <span class="text">Create Order</span>
+            </button>
+          </form>
+        
+        </div>
+        <!-- /.container-fluid (End page content) -->
+
+      </div>
+      <!-- End of Main Content -->
+
+{{> commonBottonTemplate }}

@@ -51,6 +51,12 @@ public class URIsController {
 		return "index";
 	}
 
+	@GetMapping("/new_order_form")
+	public String newOrderForm() {
+		return "new_order";
+	}
+
+	
 	@GetMapping("/show_order/{id}")
 	public String showOrder(Model model, @PathVariable long id) {
 
