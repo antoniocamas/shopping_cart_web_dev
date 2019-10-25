@@ -4,21 +4,7 @@ function deleteOrderConfirmation(delete_location) {
     }    
 };
 
-var newItemInputWrapper = "";
-
-$(document).ready(function() {
-    $("#addItem").click(function() {
-        if(!newItemInputWrapper){
-            newItemInputWrapper = $("#itemTextBoxes").first().html();
-        }        
-        $("#itemTextBoxes").append(newItemInputWrapper);
-        swithDeleteButtons();
-    });
-
-  
-});
-
-function swithDeleteButtons() {
+function switchDeleteButtons() {
     if($("#itemTextBoxes").children().length > 1){
         $("#itemTextBoxes").find('.btn-danger').show();
     }
@@ -27,9 +13,22 @@ function swithDeleteButtons() {
     }
 };
 
+$(document).ready(switchDeleteButtons());
+
+$(document).ready(function() {
+    $("#addItem").click(function() {
+        var newItemInputWrapper = $("#itemTextBoxes").children()[0].outerHTML;
+        $("#itemTextBoxes").append(newItemInputWrapper);
+        $("#itemTextBoxes").find("input").last().val("");
+        switchDeleteButtons();
+    });
+
+  
+});
+
 //Since the class rowInputDeleter is added dynamically the listener has to be at document level
 $(document).on('click', '.rowInputDeleter', function(event) {
     event.preventDefault();
     $(event.target).closest(".form-group").remove();
-    swithDeleteButtons();    
+    switchDeleteButtons();    
 });

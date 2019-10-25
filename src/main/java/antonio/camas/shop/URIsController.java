@@ -56,7 +56,6 @@ public class URIsController {
 		return "new_order";
 	}
 
-	
 	@GetMapping("/show_order/{id}")
 	public String showOrder(Model model, @PathVariable long id) {
 
@@ -121,4 +120,13 @@ public class URIsController {
 		return "success_order";
 	}
 	
+	@GetMapping("/modify_order_form/{id}")
+	public String modifyOrderForm(Model model, @PathVariable long id) {
+
+		CustomerOrder order = orderRepository.findById(id).get();
+
+		model.addAttribute("order", order);
+
+		return "modify_order_form";
+	}
 }
