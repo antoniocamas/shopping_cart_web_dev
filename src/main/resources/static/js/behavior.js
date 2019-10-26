@@ -22,8 +22,6 @@ $(document).ready(function() {
         $("#itemTextBoxes").find("input").last().val("");
         switchDeleteButtons();
     });
-
-  
 });
 
 //Since the class rowInputDeleter is added dynamically the listener has to be at document level

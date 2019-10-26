@@ -129,4 +129,59 @@ public class URIsController {
 
 		return "modify_order_form";
 	}
+	
+	@PostMapping(value ="/modify_order")
+	public String modifyrderPost(WebRequest request ) {
+		long orderId = Long.parseLong(request.getParameter("orderId"));
+		String[] newItemNames = request.getParameterValues("items");
+
+		CustomerOrder order = orderRepository.findById(orderId).get();
+		
+		
+		deleteItemToOrder(newItemNames, order);
+		addItemsToOder(newItemNames, order);
+		
+		return "success_order";
+	}
+
+	private void deleteItemToOrder(String[] newItemNames, CustomerOrder order) {
+		List<Item> oldItemsOrder = order.getItems();
+		for (int i=0; i< oldItemsOrder.size(); i++)
+		{
+			Item oldItem = oldItemsOrder.get(i);
+			if(!Arrays.asList(newItemNames).contains(oldItem.getName())) {
+				order.removeItem(oldItem);
+				orderRepository.save(order);
+				itemRepository.delete(oldItem);
+			};
+		}
+	}
+
+	private void addItemsToOder(String[] newItemNames, CustomerOrder order) {
+		for (String newItem : newItemNames) {
+			if(isNewItem(newItem, order)) {		
+				Item itemToAdd = new Item(newItem);
+				itemRepository.save(itemToAdd);
+				order.addItem(itemToAdd);
+				orderRepository.save(order);
+			}
+		}
+	}
+	
+	private boolean isNewItem(String itemName, CustomerOrder order) {
+		List<Item> itemsInDBforName = itemRepository.findByName(itemName);
+		if (itemsInDBforName.isEmpty()) {
+			return true;
+		}
+		
+		for (Item itemFound: itemsInDBforName) {
+			CustomerOrder orderWithItem = orderRepository.findByItemsId(itemFound.getId());
+			
+			if(orderWithItem.getId() == order.getId()) {
+				return false;
+			}
+		}
+
+		return true;
+	}
 }

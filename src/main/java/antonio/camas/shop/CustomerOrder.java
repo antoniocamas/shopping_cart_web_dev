@@ -63,6 +63,17 @@ public class CustomerOrder {
 		this.items = items;
 	}
 	
+	public void addItem(Item item) {
+		this.items.add(item);
+	}
+
+	public void removeItem(Item item) {
+		int index = this.items.indexOf(item);
+		if(index>-1) {
+			this.items.remove(index);
+		}
+	}
+	
 	@Override
 	public String toString() {
 		return "CustomerOrder [title=" + title +"]";
