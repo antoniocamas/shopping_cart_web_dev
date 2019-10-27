@@ -1,0 +1,50 @@
+{{> commonUpperTemplate }}
+
+          <!--Section title-->
+          <h1 class="h3 mb-1 text-gray-800">Check Items</h1>
+          <!-- End Section title -->
+
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav ml-auto">
+              <li><span>Proof of Concept of Web development</span></li>
+          </ul> 
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+	      <h1 class="h3 mb-1 text-gray-800">{{order.title}}</h1>
+          <form action="/check_items_order" method="post">
+			  <input type='hidden' name='orderId' value="{{order.id}}"/>
+              <p>Items</p>
+         	  <div id="ItemsCheckBoxes">
+                  {{#order.items}}
+                  <input type="checkbox" name="item_{{id}}" id="item_{{id}}" {{#crossed}}checked{{/crossed}}/> 
+                  <label for="item_{{id}}">{{#crossed}}<s>{{name}}</s>{{/crossed}}{{^crossed}}{{name}}{{/crossed}}</label>
+				  <br/>
+				  {{/order.items}}
+			  </div>
+				  
+			  <hr class="sidebar-divider my-0">
+              <br /><br />
+              <div class="my-2"></div>
+              <button type="submit" class="btn btn-success btn-icon-split" id="btnSave">
+                <span class="icon text-white-50">
+                  <i class="fas fa-check"></i>
+                </span>
+                <span class="text">Save</span>
+              </button>
+          </form>
+          
+			{{^order.items}}
+				<p>No items yet</p>
+			{{/order.items}}
+    
+ 			</div>
+        <!-- /.container-fluid (End page content) -->
+
+      </div>
+      <!-- End of Main Content -->
+
+{{> commonBottonTemplate }}

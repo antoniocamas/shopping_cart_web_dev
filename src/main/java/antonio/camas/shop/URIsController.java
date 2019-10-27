@@ -40,7 +40,12 @@ public class URIsController {
 		List<Item> itemsOrder1 = Arrays.asList(item1Or1, item1Or2, item1Or3);
 		
 		orderRepository.save(new CustomerOrder("Fruits", itemsOrder1));
-		orderRepository.save(new CustomerOrder("Drinks"));
+		
+		item1Or1 = new Item("Spider-man");
+		itemRepository.save(item1Or1);
+		
+		itemsOrder1 = Arrays.asList(item1Or1);
+		orderRepository.save(new CustomerOrder("Comics", itemsOrder1));
 	}
 	
 	@GetMapping("/")
@@ -95,8 +100,7 @@ public class URIsController {
 			itemEntries.add(entry);
 			itemRepository.save(entry);
 		}
-		
-		
+				
 		CustomerOrder order = new CustomerOrder(title, itemEntries);
 		orderRepository.save(order);
 		//System.out.println(order);
@@ -115,6 +119,33 @@ public class URIsController {
 		
 		for (Item item : items) {
 			itemRepository.delete(item);
+		}
+		
+		return "success_order";
+	}
+		
+	@GetMapping("/check_items_order_form/{id}")
+	public String checkItemsOrderForm(Model model, @PathVariable long id) {
+
+		CustomerOrder order = orderRepository.findById(id).get();
+
+		model.addAttribute("order", order);
+
+		return "check_items_order_form";
+	}
+
+	@PostMapping(value ="/check_items_order")
+	public String checkItemsPost(WebRequest request ) {
+		long orderId = Long.parseLong(request.getParameter("orderId"));
+		
+		CustomerOrder order = orderRepository.findById(orderId).get();
+		List<Item> itemsOrder = order.getItems();
+		
+		for (Item item : itemsOrder)
+		{
+			String formValue = request.getParameter("item_" + item.getId());
+			item.setCrossed(Boolean.parseBoolean(formValue));
+			itemRepository.save(item);
 		}
 		
 		return "success_order";

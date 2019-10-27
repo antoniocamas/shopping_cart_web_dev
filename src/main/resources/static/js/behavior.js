@@ -15,7 +15,8 @@ function switchDeleteButtons() {
 
 $(document).ready(
     switchDeleteButtons(),
-    switchForm()
+    switchForm(),
+    checkFormSetValues()
     );
 
 $(document).ready(function () {
@@ -63,4 +64,28 @@ function validateForm() {
         return false;
     }
     return true;
+};
+
+$("#ItemsCheckBoxes").click(function (event) {
+
+    checkFormUpdateValue(event.target);
+
+});
+
+function checkFormSetValues(){
+
+    $("input[type='checkbox']").each(function (index, data){
+        checkFormUpdateValue(data);
+    })
+};
+
+function checkFormUpdateValue(target){
+    if($(target).is(':checked')){
+        $(target).val('true');
+        $("label[for='"+$(target).attr("id")+"']").html($("label[for='"+$(target).attr("id")+"']").text().strike());
+    }
+    else{
+        $(target).val('false');
+        $("label[for='"+$(target).attr("id")+"']").html($("label[for='"+$(target).attr("id")+"']").text());
+    }
 };
