@@ -148,7 +148,7 @@ public class URIsController {
 			itemRepository.save(item);
 		}
 		
-		return "success_order";
+		return "redirect:show_order/" + orderId;
 	}
 	
 	@GetMapping("/modify_order_form/{id}")
@@ -172,7 +172,7 @@ public class URIsController {
 		deleteItemToOrder(newItemNames, order);
 		addItemsToOder(newItemNames, order);
 		
-		return "success_order";
+		return "redirect:show_order/" + orderId;
 	}
 
 	private void deleteItemToOrder(String[] newItemNames, CustomerOrder order) {
