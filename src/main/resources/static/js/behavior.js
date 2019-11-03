@@ -1,33 +1,21 @@
-function deleteOrderConfirmation(delete_location) {
-    if (confirm("Are you sure you want to delete this entry?")) {
-        document.location = delete_location;
-    }
-};
-
-function switchDeleteButtons() {
-    if ($("#itemTextBoxes").children().length > 1) {
-        $("#itemTextBoxes").find('.btn-danger').show();
-    }
-    else {
-        $("#itemTextBoxes").find('.btn-danger').hide();
-    }
-};
-
 $(document).ready(
     switchDeleteButtons(),
     switchForm(),
     checkFormSetValues()
     );
 
-$(document).ready(function () {
-    $("#addItem").click(function () {
-        var newItemInputWrapper = $("#itemTextBoxes").children()[0].outerHTML;
-        $("#itemTextBoxes").append(newItemInputWrapper);
-        $("#itemTextBoxes").find("input").last().val("");
-        switchDeleteButtons();
-        switchForm();
-    });
+$('#addItem').click(function (event) {
+	 var newItemInputWrapper = $("#itemTextBoxes").children()[0].outerHTML;
+     $("#itemTextBoxes").append(newItemInputWrapper);
+     $("#itemTextBoxes").find("input").last().val("");
+     switchDeleteButtons();
+     switchForm();	
 });
+
+$("#ItemsCheckBoxes").click(function (event) {
+    checkFormUpdateValue(event.target);
+});
+
 
 //Since the class rowInputDeleter is added dynamically the listener has to be at document level
 $(document).on('click', '.rowInputDeleter', function (event) {
@@ -66,11 +54,6 @@ function validateForm() {
     return true;
 };
 
-$("#ItemsCheckBoxes").click(function (event) {
-
-    checkFormUpdateValue(event.target);
-
-});
 
 function checkFormSetValues(){
 
@@ -87,5 +70,20 @@ function checkFormUpdateValue(target){
     else{
         $(target).val('false');
         $("label[for='"+$(target).attr("id")+"']").html($("label[for='"+$(target).attr("id")+"']").text());
+    }
+};
+
+function deleteOrderConfirmation(delete_location) {
+    if (confirm("Are you sure you want to delete this entry?")) {
+        document.location = delete_location;
+    }
+};
+
+function switchDeleteButtons() {
+    if ($("#itemTextBoxes").children().length > 1) {
+        $("#itemTextBoxes").find('.btn-danger').show();
+    }
+    else {
+        $("#itemTextBoxes").find('.btn-danger').hide();
     }
 };
