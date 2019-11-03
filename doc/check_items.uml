@@ -1,0 +1,22 @@
+@startuml
+actor User
+collections Browser
+collections Backend
+database DB
+
+== Check Items ==
+group from /order.html
+User -> Browser : click on Check Items
+Browser -> Backend: GET /check_items_order_form/<id>
+Backend -> Browser : check_items_order_form.html
+Browser -> User : Allows checking the items.
+  loop n times
+    User -> Browser : mark item checkbox
+    Browser -> User : item is crossed out
+  end
+  User -> Browser : click on Save
+  Browser -> Backend : POST /check_items_order/<id>
+  Backend -> DB : update order <id>
+  Backend -> Browser : Redirect /show_order/<id>
+end
+@enduml

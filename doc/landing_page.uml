@@ -1,0 +1,15 @@
+@startuml
+actor User
+collections Browser
+collections Backend
+database DB
+
+== Landing Page ==
+
+User -> Browser : /index.html
+Browser -> Backend : GET /index.html
+Backend -> DB : get order list
+DB -> Backend : order list
+Backend -> Browser : /index.html
+Browser -> User : (list orders, and new order)
+@enduml

@@ -1,0 +1,29 @@
+@startuml
+actor User
+collections Browser
+collections Backend
+database DB
+
+== Modify Order ==
+
+group from /order.html
+User -> Browser : click on Modify Order
+Browser -> Backend: GET /modify_order_form/<id>
+Backend -> Browser : check_items_order_form.html
+Browser -> User : Adding/Removing items
+loop n times
+  alt delete item
+     User -> Browser : click item delete button
+     Browser -> User : item is deleted
+  else add item
+     User -> Browser : click Add new item button
+     Browser -> User : show a new input text field
+  end
+end
+
+User -> Browser : click on Save
+Browser -> Backend : POST /modify_order/<id>
+Backend -> DB : update order <id>
+Backend -> Browser : Redirect /show_order/<id>
+end
+@enduml

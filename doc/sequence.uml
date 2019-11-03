@@ -15,8 +15,8 @@ Browser -> User : (list orders, and new order)
 
 == New Order ==
 User -> Browser : Click on new order
-Browser -> Backend : GET /new_order.html
-Backend -> Browser : /new_order.html
+Browser -> Backend : GET /new_order_form.html
+Backend -> Browser : /new_order_form.html
 Browser -> User : formulary
 User -> Browser : enters the title
 
@@ -30,8 +30,8 @@ end
 User -> Browser : click send
 Browser -> Backend : POST /create_order.html
 Backend -> DB : create new order entry
-Backend -> Browser : /index.html
-Browser -> User : /index.html
+Backend -> Browser : /success.html
+Browser -> User : /success.html
 
 == Show Order ==
 
@@ -49,19 +49,34 @@ Browser -> User : alert Are you sure?
 User -> Browser : yes
 Browser -> Backend : DELETE /delete_order/<id>
 Backend -> DB : delete order <id>
-Backend -> Browser : /index.html
-Browser -> User : /index.html
+Backend -> Browser : /success.html
+Browser -> User : /success.html
 end
 
-== Update Order ==
+== Check Items ==
 group from /order.html
-User -> Browser : click on Update Order
-Browser -> User : Allows editing the items.
+User -> Browser : click on Check Items
+Browser -> Backend: GET /check_items_order_form/<id>
+Backend -> Browser : check_items_order_form.html
+Browser -> User : Allows checking the items.
 loop n times
-  alt cross out item
-      User -> Browser : mark item checkbox
-      Browser -> User : item is crossed out
-  else delete item
+  User -> Browser : mark item checkbox
+  Browser -> User : item is crossed out
+end
+User -> Browser : click on Save
+Browser -> Backend : POST /check_items_order/<id>
+Backend -> DB : update order <id>
+Backend -> Browser : Redirect /show_order/<id>
+end
+
+== Modify Order ==
+group from /order.html
+User -> Browser : click on Modify Order
+Browser -> Backend: GET /modify_order_form/<id>
+Backend -> Browser : check_items_order_form.html
+Browser -> User : Adding/Removing items
+loop n times
+  alt delete item
       User -> Browser : click item delete button
       Browser -> User : item is deleted
   else add item
@@ -71,9 +86,9 @@ loop n times
 end
 
 User -> Browser : click on Save
-Browser -> Backend : UPDATE /delete_order/<id>
+Browser -> Backend : POST /modify_order/<id>
 Backend -> DB : update order <id>
-Backend -> Browser : /index.html
-Browser -> User : /index.html
+Backend -> Browser : Redirect /show_order/<id>
 end
+
 @enduml

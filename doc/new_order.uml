@@ -1,0 +1,27 @@
+@startuml
+actor User
+collections Browser
+collections Backend
+database DB
+
+== New Order ==
+User -> Browser : Click on new order
+Browser -> Backend : GET /new_order_form.html
+Backend -> Browser : /new_order_form.html
+Browser -> User : formulary
+User -> Browser : enters the title
+
+loop n times
+  User -> Browser : Add text of item
+  Browser -> User : show item in a list
+  User -> Browser : click Add new item button
+  Browser -> User : show a new input text field
+end
+
+User -> Browser : click send
+Browser -> Backend : POST /create_order.html
+Backend -> DB : create new order entry
+Backend -> Browser : /success.html
+Browser -> User : /success.html
+
+@enduml

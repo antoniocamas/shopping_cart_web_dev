@@ -1,0 +1,17 @@
+@startuml
+actor User
+collections Browser
+collections Backend
+database DB
+
+== Delete Order ==
+group from /order.html
+User -> Browser : click on Delete Order
+Browser -> User : alert Are you sure?
+User -> Browser : yes
+Browser -> Backend : DELETE /delete_order/<id>
+Backend -> DB : delete order <id>
+Backend -> Browser : /success.html
+Browser -> User : /success.html
+end
+@enduml

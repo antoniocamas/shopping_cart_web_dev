@@ -1,0 +1,15 @@
+@startuml
+actor User
+collections Browser
+collections Backend
+database DB
+
+== Show Order ==
+
+User -> Browser : Click on order
+Browser -> Backend : GET /show_order/<id>
+Backend -> DB : get order with <id>
+DB -> Backend : return order <id>
+Backend -> Browser : order.html
+Browser -> User : Order details (list of items)
+@enduml
